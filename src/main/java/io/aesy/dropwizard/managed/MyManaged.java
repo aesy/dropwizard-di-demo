@@ -1,4 +1,4 @@
-package io.aesy.dropwizard.job;
+package io.aesy.dropwizard.managed;
 
 import io.aesy.dropwizard.service.MyService;
 import io.dropwizard.lifecycle.Managed;
@@ -22,7 +22,7 @@ public class MyManaged implements Managed {
     @Override
     public void start() throws Exception {
         System.out.println("Start");
-        myService.doThing("woop");
+        System.out.println(myService.doThing("managed"));
     }
 
     @Override

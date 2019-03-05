@@ -1,30 +1,39 @@
 package io.aesy.dropwizard.service;
 
 import com.codahale.metrics.MetricRegistry;
-import io.aesy.dropwizard.aop.Log;
-import io.aesy.dropwizard.aop.Log2;
-import org.glassfish.hk2.extras.interception.Intercepted;
+import io.aesy.dropwizard.entity.MyEntity;
+import io.aesy.dropwizard.monitoring.MyLoggingAnnotation;
+import io.aesy.dropwizard.repository.MyEntityRepository;
 import org.jvnet.hk2.annotations.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 
-@Intercepted
 @Service
 public class MyService {
     private final MetricRegistry metrics;
+    private final MyEntityRepository repository;
 
     @Inject
     public MyService(
-        MetricRegistry metrics
+        MetricRegistry metrics,
+        MyEntityRepository repository
     ) {
         this.metrics = metrics;
+        this.repository = repository;
     }
 
-    @Log
-    @Log2
-    public void doThing(String say) {
+    @MyLoggingAnnotation
+    public String doThing(String say) {
         metrics.counter("test").inc();
+        return "woop" + say;
+    }
 
-        System.out.println(say);
+    public List<MyEntity> getThing() {
+        return repository.findAll();
+    }
+
+    public void addThing(MyEntity entity) {
+        repository.create(entity);
     }
 }

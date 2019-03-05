@@ -1,6 +1,6 @@
 
-val hk2Version = "2.5.0-b61"
-val dwVersion = "1.3.3"
+val hk2Version = "2.5.0-b32"
+val dwVersion = "1.3.9"
 val psqlVersion = "9.1-901.jdbc3"
 
 plugins {

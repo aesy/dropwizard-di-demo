@@ -1,4 +1,4 @@
-package io.aesy.dropwizard;
+package io.aesy.dropwizard.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.db.DataSourceFactory;

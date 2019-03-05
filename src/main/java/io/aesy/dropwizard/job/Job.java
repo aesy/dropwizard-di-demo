@@ -1,13 +1,16 @@
-package io.aesy.dropwizard.di;
+package io.aesy.dropwizard.job;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import io.dropwizard.lifecycle.Managed;
+import io.dropwizard.setup.Environment;
 import org.glassfish.hk2.api.IterableProvider;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.reflections.Reflections;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.Feature;
+import javax.ws.rs.core.FeatureContext;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -19,10 +22,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-// Misfire policy
-// Repeat count
-// Delay every?
-// Every from each start or from start to end?
+// TODO Misfire policy
+// TODO Repeat count
+// TODO Delay every?
+// TODO Every from each start or from start to end?
+
+// JobManager should fire event on job start, abort, fail, completion
+// JobManager should time jobs
+// JobManager should count current job states and finishing job states
+
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
@@ -52,17 +60,17 @@ import java.util.concurrent.TimeUnit;
     TimeUnit unit();
 }
 
-// class JobFeature implements Feature {
-//     @Inject
-//     private Environment environment;
-//
-//     @Override
-//     public boolean configure(FeatureContext context) {
-//         environment.getApplicationContext().manage(JobManager.class);
-//
-//         return true;
-//     }
-// }
+class JobFeature implements Feature {
+    @Inject
+    private Environment environment;
+
+    @Override
+    public boolean configure(FeatureContext context) {
+        environment.getApplicationContext().manage(JobManager.class);
+
+        return true;
+    }
+}
 
 class JobBinder extends AbstractBinder {
     @Override

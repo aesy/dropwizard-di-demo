@@ -9,11 +9,15 @@ import javax.persistence.*;
 public class MyEntity {
     @Id
     @Column(name = "id", nullable = false)
-    private final int id;
+    private int id;
 
     @NotEmpty
     @Column(name = "name", nullable = false)
-    private final String name;
+    private String name;
+
+    public MyEntity() {
+        // Required by hibernate
+    }
 
     public MyEntity(int id, String name) {
         this.id = id;

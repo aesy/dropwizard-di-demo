@@ -8,6 +8,9 @@ database:
     url: jdbc:postgresql://localhost/test
     user: postgres
     password: postgres
+    properties:
+        charSet: UTF-8
+        hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
 logging:
     level: INFO
